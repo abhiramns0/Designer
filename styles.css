@@ -19,7 +19,7 @@
 
 .navbar a {
     text-decoration: none;
-    color: #696969;
+    color: #FFFFFF;
     font-size: 16px;
     transition: opacity 0.3s;
 }
@@ -40,7 +40,7 @@ html {
 body {
     font-family: 'Poppins', sans-serif;
     background-color: black;
-    color: #F6F6F6;
+    color: #FFFFFF;
 }
 
 main {
