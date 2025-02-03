@@ -155,11 +155,11 @@ main {
 
 /* Different colors for each project */
 .project-card:nth-child(1) {
-    background-color: #F0FFED;
+    background-color: #FFF9ED;
 }
 
 .project-card:nth-child(2) {
-    background-color: #FFF9ED;
+    background-color: #F0FFED;
 }
 
 .project-card:nth-child(3) {
