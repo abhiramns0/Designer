@@ -1,25 +1,450 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhiram N S</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
+    
+<div class="animation-container">
+  <svg id="animationSvg" preserveAspectRatio="none">
+    <path id="animTriangle" class="shape" />
+    <circle id="animCircle" class="shape" r="20" />
+  </svg>
+</div>
+
+<style>
+.animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+#animationSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.shape {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#animCircle {
+  fill: #0004FF;
+}
+
+#animTriangle {
+  fill: #FF0000;
+}
+</style>
+
+<script>
+class AnimationController {
+  constructor() {
+    this.circle = document.getElementById('animCircle');
+    this.triangle = document.getElementById('animTriangle');
+    this.isAnimating = false;
+    
+    // Animation settings
+    this.circleRadius = 10;
+    this.triangleSize = 20;
+    this.animationDuration = 2000;
+    this.minGap = 80;
+    this.maxGap = 200;
+    this.lastScrollPosition = window.scrollY;
+    this.lastAnimationTime = 0;
+    
+    // Speed settings
+    this.circleSpeed = 1.0;
+    this.triangleSpeed = 0.7;
+    
+    this.init();
+  }
+  
+  init() {
+    // Trigger initial animation after 5 seconds
+    setTimeout(() => {
+      this.animate('normal');
+    }, 5000);
+
+      // Trigger second animation at 60 seconds
+    setTimeout(() => {
+      if (!this.isAnimating) {
+        this.animate('normal');
+        this.hasPlayed60s = true;
+      } else {
+        // If currently animating, wait and try again
+        const checkAndAnimate = () => {
+          if (!this.isAnimating && !this.hasPlayed60s) {
+            this.animate('normal');
+            this.hasPlayed60s = true;
+          } else if (!this.hasPlayed60s) {
+            setTimeout(checkAndAnimate, 100);
+          }
+        };
+        setTimeout(checkAndAnimate, 100);
+      }
+    }, 60000);
+
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+      }
+      scrollTimeout = window.requestAnimationFrame(() => {
+        this.handleScroll();
+      });
+    });
+  }
+  
+  handleScroll() {
+    const currentScroll = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const now = Date.now();
+    
+    if (now - this.lastAnimationTime >= 5000) {
+      if (
+        (currentScroll <= 0 && this.lastScrollPosition > currentScroll) ||
+        (currentScroll >= maxScroll && this.lastScrollPosition < currentScroll)
+      ) {
+        this.lastAnimationTime = now;
+        this.animate('normal');
+      }
+    }
+    
+    this.lastScrollPosition = currentScroll;
+  }
+
+  generatePath(type = 'normal') {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    // Always get random edge points for start and end
+    const startPoint = this.getEdgePoint();
+    const endPoint = this.getEdgePoint(true);
+    
+    // Control points for smooth curve
+    const centerX = width / 2;
+    const centerY = height / 2;
+    
+    return {
+      start: startPoint,
+      end: endPoint,
+      control1: {
+        x: centerX + (Math.random() - 0.5) * width * 0.3,
+        y: centerY + (Math.random() - 0.5) * height * 0.3
+      },
+      control2: {
+        x: centerX + (Math.random() - 0.5) * width * 0.3,
+        y: centerY + (Math.random() - 0.5) * height * 0.3
+      }
+    };
+  }
+  
+  getEdgePoint(opposite = false) {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const side = opposite ? (this.startSide + 2) % 4 : Math.floor(Math.random() * 4);
+    this.startSide = side;
+    
+    switch(side) {
+      case 0: return { x: -50, y: height * Math.random() }; // Left
+      case 1: return { x: width + 50, y: height * Math.random() }; // Right
+      case 2: return { x: width * Math.random(), y: -50 }; // Top
+      case 3: return { x: width * Math.random(), y: height + 50 }; // Bottom
+    }
+  }
+  
+  getBezierPoint(t, p0, p1, p2, p3) {
+    const oneMinusT = 1 - t;
+    return {
+      x: Math.pow(oneMinusT, 3) * p0.x +
+         3 * Math.pow(oneMinusT, 2) * t * p1.x +
+         3 * oneMinusT * Math.pow(t, 2) * p2.x +
+         Math.pow(t, 3) * p3.x,
+      y: Math.pow(oneMinusT, 3) * p0.y +
+         3 * Math.pow(oneMinusT, 2) * t * p1.y +
+         3 * oneMinusT * Math.pow(t, 2) * p2.y +
+         Math.pow(t, 3) * p3.y
+    };
+  }
+  
+  updateTrianglePosition(x, y, prevX, prevY) {
+    const angle = Math.atan2(y - prevY, x - prevX);
+    const size = this.triangleSize;
+    
+    const points = [
+      { x: -size, y: -size/2 },
+      { x: -size, y: size/2 },
+      { x: size, y: 0 }
+    ];
+    
+    const rotatedPoints = points.map(p => ({
+      x: x - this.minGap * Math.cos(angle) + (p.x * Math.cos(angle) - p.y * Math.sin(angle)),
+      y: y - this.minGap * Math.sin(angle) + (p.x * Math.sin(angle) + p.y * Math.cos(angle))
+    }));
+    
+    this.triangle.setAttribute('d', `
+      M ${rotatedPoints[0].x},${rotatedPoints[0].y}
+      L ${rotatedPoints[1].x},${rotatedPoints[1].y}
+      L ${rotatedPoints[2].x},${rotatedPoints[2].y}
+      Z
+    `);
+  }
+  
+  animate(pathType = 'normal') {
+    if (this.isAnimating) return;
+    
+    this.isAnimating = true;
+    const path = this.generatePath(pathType);
+    const startTime = performance.now();
+    let prevX = path.start.x;
+    let prevY = path.start.y;
+    
+    this.circle.style.opacity = 1;
+    this.triangle.style.opacity = 1;
+    
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      
+      let circleProgress = (elapsed / this.animationDuration) * this.circleSpeed;
+      let triangleProgress = (elapsed / this.animationDuration) * this.triangleSpeed;
+      
+      if (circleProgress >= 1 && triangleProgress >= 1) {
+        this.isAnimating = false;
+        this.circle.style.opacity = 0;
+        this.triangle.style.opacity = 0;
+        return;
+      }
+      
+      if (triangleProgress < 1) {
+        const trianglePos = this.getBezierPoint(
+          Math.min(triangleProgress, 1),
+          path.start,
+          path.control1,
+          path.control2,
+          path.end
+        );
+        this.updateTrianglePosition(trianglePos.x, trianglePos.y, prevX, prevY);
+        prevX = trianglePos.x;
+        prevY = trianglePos.y;
+      }
+      
+      if (circleProgress < 1) {
+        const circlePos = this.getBezierPoint(
+          Math.min(circleProgress, 1),
+          path.start,
+          path.control1,
+          path.control2,
+          path.end
+        );
+        this.circle.setAttribute('cx', circlePos.x);
+        this.circle.setAttribute('cy', circlePos.y);
+      }
+      
+      requestAnimationFrame(animate);
+    };
+    
+    requestAnimationFrame(animate);
+  }
+}
+
+window.addEventListener('load', () => {
+  const animator = new AnimationController();
+});
+</script>
+
+
 <body>
-  <!-- Background -->
-  <div id="bg3d" aria-hidden="true"></div>
-  <!-- Atmosphere overlay (vignette + subtle bloom-ish glow) -->
-  <div id="atmo" aria-hidden="true"></div>
+    <nav class="navbar">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="https://drive.google.com/file/d/137oiF-6MtJzSn1vhQD5wgykKUSkIyFAO/view?usp=sharing" target="_blank">Resume</a>
+</nav>
+    <main>
+        <div class="hero-section">
+            <h1><span class="light">Hi, I am</span> <span class="name">Abhiram</span></h1>
+            <p class="hero-description">I design intuitive experiences that seamlessly connect user needs with the magic of technology, driven by curiosity and a passion for innovation</p>
 
-  <!-- Your page content -->
-  <main id="content">
-    <!-- ...your existing homepage content... -->
-  </main>
+        
+    <div class="scroll-indicator">
+        <div class="hover-circle"></div>
+        <svg class="arrow-down" width="20" height="40" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2L20 38M20 38L38 20M20 38L2 20" stroke="#CDCDCD" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+            <script>
+    document.querySelector('.scroll-indicator').addEventListener('click', function() {
+        document.querySelector('#work').scrollIntoView({ 
+            behavior: 'smooth'
+        });
+    });
+</script>
 
-  <!-- Three.js -->
-  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-  <!-- Background logic -->
-  <script src="interactive-bg.js"></script>
+
+        </div>
+
+               <section class="projects">
+            <section id="work" class="projects">
+            <article class="project-card">
+                <div class="project-image-container">
+                    <img src="chordex.png" alt="Chordex Project" class="project-image">
+                </div>
+                <div class="project-content">
+                    <h2>Chordex</h2>
+                    <h3>A wearable chorded keyboard for Indian Languages</h3>
+                    <p class="project-description">Chordex is a wearable chorded keyboard designed for Indian languages, optimized and tested for Malayalam. It achieved an impressive typing speed of 85 CMP and was proudly presented at IndiaHCI 2024 following its acceptance.</p>
+                    <div class="project-details">
+                        <div class="detail-group">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">4 months</span>
+                        </div>
+                        <div class="detail-group">
+                            <span class="detail-label">Project type:</span>
+                            <span class="detail-value">Academic - Individual</span>
+                        </div>
+                    </div>
+                    <a href="https://www.behance.net/gallery/213288693/Wearable-Chorded-Keyboard-for-Malayalam" class="view-project-btn">View Project</a>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-image-container">
+                    <img src="anva.png" alt="Anva Project" class="project-image">
+                </div>
+                <div class="project-content">
+                    <h2>Anva</h2>
+                    <h3>Gesture-Based Swarm Robot Control in VR</h3>
+                    <p class="project-description">
+Gesture-Based Swarm Control in VR leverages natural gestures to control aerial swarm robots in high-stakes scenarios like search-and-rescue. A user study identified preferred gestures, leading to a Unity-based prototype that enhances human-swarm interaction, paving the way for future innovations.</p>
+                    <div class="project-details">
+                        <div class="detail-group">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">4 months</span>
+                        </div>
+                        <div class="detail-group">
+                            <span class="detail-label">Project type:</span>
+                            <span class="detail-value">Academic - Individual</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1Rth_5QeYUCAulKuV_yzPFVVw3736rBay/view?usp=sharing" class="view-project-btn">View Project</a>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-image-container">
+                    <img src="Grama.png" alt="Grama Project" class="project-image">
+                </div>
+                <div class="project-content">
+                    <h2>Grama</h2>
+                    <h3>A one stop for rural retail</h3>
+                    <p class="project-description">Grama is a system design project developed through interviews with rural stakeholders to understand their challenges. It connects shopkeepers, customers, suppliers, and delivery agents through a unified platform, addressing inventory management, pricing transparency, and credit systems. Grama fosters trust, enhances efficiency, and strengthens community bonds in rural India.</p>
+                    <div class="project-details">
+                        <div class="detail-group">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">4 months</span>
+                        </div>
+                        <div class="detail-group">
+                            <span class="detail-label">Project type:</span>
+                            <span class="detail-value">Graduation Project</span>
+                        </div>
+                    </div>
+                    <a href="https://www.behance.net/gallery/213171205/Redefining-Rural-Retail-Through-System-Design" class="view-project-btn">View Project</a>
+                </div>
+            </article>
+
+                 <article class="project-card">
+                <div class="project-image-container">
+                    <img src="gpay.png" alt="Gpay Plugin Project" class="project-image">
+                </div>
+                <div class="project-content">
+                    <h2>Gpay Plugin</h2>
+                    <h3>Personal Accounting Plugin for Google Pay</h3>
+                    <p class="project-description">
+Personal Accounting Plugin is a design concept tailored for seamless home accounting. Integrated into the application, it automates tracking expenses and income, offering real-time visualizations that are analyzable, comparable, and exportable. Users can plan future expenses, set monthly limits, and monitor updates in real-time, simplifying financial management.</p>
+                    <div class="project-details">
+                        <div class="detail-group">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">3 Weeks</span>
+                        </div>
+                        <div class="detail-group">
+                            <span class="detail-label">Project type:</span>
+                            <span class="detail-value">Academic - Group</span>
+                        </div>
+                    </div>
+                    <a href="https://www.behance.net/gallery/153731849/PERSONAL-ACCOUNTING-PLUGIN-FOR-GOOGLE-PAY" class="view-project-btn">View Project</a>
+                </div>
+            </article>
+
+                <article class="project-card">
+                <div class="project-image-container">
+                    <img src="kahaani.png" alt="Kahaani Project" class="project-image">
+                </div>
+                <div class="project-content">
+                    <h2>Kahaani</h2>
+                    <h3>Social Awareness and Marketplace for Dharavi</h3>
+                    <p class="project-description">
+An online Marketplace, Community and Awareness program to support the small scale industries and independent artisans of Dharavi, one of the largest 'slums' in the world to help them earn the true amount they deserve and reimagine Dharavi as a key thriving industrial hub and an intersection of culture and skill.</p>
+                    <div class="project-details">
+                        <div class="detail-group">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">3 Weeks</span>
+                        </div>
+                        <div class="detail-group">
+                            <span class="detail-label">Project type:</span>
+                            <span class="detail-value">Academic - Group</span>
+                        </div>
+                    </div>
+                    <a href="https://www.behance.net/gallery/183359017/kahaani-Social-awareness-and-Marketplace-for-Dharavi" class="view-project-btn">View Project</a>
+                </div>
+            </article>
+
+            <a href="https://www.behance.net/abhiramns" class="more-works">
+    <h2>More Works</h2>
+    <svg class="arrow-right" width="40" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 20L38 20M38 20L20 2M38 20L20 38" stroke="#CDCDCD" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</a>
+        </section>
+
+       <section class="about">
+    <section id="about" class="projects">
+        <h2>About</h2>
+        <img src="yourphoto.jpg" alt="Profile" class="profile-image">
+        <p class="quote">Just a wonderer wandering around</p>
+        
+        <!-- Social links wrapper -->
+        <div class="social-container">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/abhiram-n-s/" target="_blank" class="social-link">
+                    <img src="linkeding.png" alt="LinkedIn" class="social-icon">
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://www.behance.net/abhiramns" class="social-link">
+                    <img src="behanceg.png" alt="Behance" class="social-icon">
+                    <span>Behance</span>
+                </a>
+                <a href="https://www.instagram.com/abhiram_n_s/" target="_blank" class="social-link">
+                    <img src="instagramg.png" alt="Instagram" class="social-icon">
+                    <span>Instagram</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Separate footer section -->
+        <footer class="footer-content">
+            <span class="name">Abhiram N S</span>
+            <span class="copyright">© 2024. All rights reserved</span>
+        </footer>
+    </section>
+</section>
+    </main>
 </body>
 </html>
