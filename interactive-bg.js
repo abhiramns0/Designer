@@ -1,151 +1,148 @@
 // interactive-bg.js
+const canvas = document.getElementById("interactive-bg");
+const ctx = canvas.getContext("2d");
 
-// ====== CONFIG ======
-const CONFIG = {
-    pointCount: 80,        // Number of points/droplets
-    maxDistance: 160,      // Max distance for connecting lines
-    connectionDelay: 300,  // Delay in ms for line formation
-    dropletSize: 3,        // Radius of droplets
-    dropletGlow: 8,        // Glow radius
-    webColor: 'rgba(255, 255, 255, 0.6)', // Web/line color
-    dropletColor: '#aee4ff', // Droplet glow color
-    atmosphereColor: 'rgba(173, 216, 230, 0.05)', // Mist/halo
-    pointSpeed: 0.3,       // Movement speed
-    responsive: true       // Adjust point count for smaller screens
+let particles = [];
+const settings = {
+    particleCount: 80,       // Number of droplets
+    maxConnectionDist: 180,  // Distance for connecting lines
+    particleSize: 3,         // Droplet radius
+    repelStrength: 0.15,     // Repelling force
+    glowStrength: 25,        // Particle glow blur
+    connectionSpeed: 0.03,   // How quickly connections form
+    atmosphereAlpha: 0.08,   // Faint glow around everything
 };
 
-const canvas = document.getElementById('interactive-bg');
-const ctx = canvas.getContext('2d');
+let mouse = { x: null, y: null };
 
-let points = [];
-let mouse = { x: null, y: null, active: false };
-
+// Resize canvas
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    if (CONFIG.responsive) {
-        CONFIG.pointCount = Math.floor(window.innerWidth / 20);
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// Mouse / touch tracking
+window.addEventListener("mousemove", e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+window.addEventListener("touchmove", e => {
+    if (e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    }
+});
+
+// Particle class
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.7;
+        this.vy = (Math.random() - 0.5) * 0.7;
+        this.connectionProgress = 0; // smooth connection forming
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce on edges
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+        // Mouse repel
+        if (mouse.x && mouse.y) {
+            let dx = this.x - mouse.x;
+            let dy = this.y - mouse.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+                let angle = Math.atan2(dy, dx);
+                let force = (100 - dist) * settings.repelStrength;
+                this.vx += Math.cos(angle) * force;
+                this.vy += Math.sin(angle) * force;
+            }
+        }
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, settings.particleSize, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(173, 216, 230, 0.9)";
+        ctx.shadowBlur = settings.glowStrength;
+        ctx.shadowColor = "rgba(173, 216, 230, 0.8)";
+        ctx.fill();
+        ctx.shadowBlur = 0;
     }
 }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
 
-// Create a point/droplet
-function createPoint(x, y) {
-    return {
-        x: x || Math.random() * canvas.width,
-        y: y || Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * CONFIG.pointSpeed,
-        vy: (Math.random() - 0.5) * CONFIG.pointSpeed,
-        connectTime: Date.now() + Math.random() * CONFIG.connectionDelay
-    };
+// Create particles
+function init() {
+    particles = [];
+    for (let i = 0; i < settings.particleCount; i++) {
+        particles.push(new Particle());
+    }
 }
+init();
 
-// Init points
-for (let i = 0; i < CONFIG.pointCount; i++) {
-    points.push(createPoint());
-}
+// Draw connections
+function drawConnections() {
+    for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+            let dx = particles[a].x - particles[b].x;
+            let dy = particles[a].y - particles[b].y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
 
-// Mouse/touch interaction
-function updateMousePos(e) {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = (e.clientX || e.touches?.[0]?.clientX) - rect.left;
-    mouse.y = (e.clientY || e.touches?.[0]?.clientY) - rect.top;
-    mouse.active = true;
-}
-function disableMouse() {
-    mouse.active = false;
-}
-window.addEventListener('mousemove', updateMousePos);
-window.addEventListener('touchmove', updateMousePos, { passive: false });
-window.addEventListener('mouseleave', disableMouse);
-window.addEventListener('touchend', disableMouse);
-
-// Draw droplet with glow
-function drawDroplet(p) {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, CONFIG.dropletSize, 0, Math.PI * 2);
-    ctx.fillStyle = CONFIG.dropletColor;
-    ctx.shadowBlur = CONFIG.dropletGlow;
-    ctx.shadowColor = CONFIG.dropletColor;
-    ctx.fill();
-    ctx.shadowBlur = 0; // reset shadow
-}
-
-// Draw atmosphere
-function drawAtmosphere() {
-    const grad = ctx.createRadialGradient(
-        mouse.x || canvas.width / 2,
-        mouse.y || canvas.height / 2,
-        0,
-        mouse.x || canvas.width / 2,
-        mouse.y || canvas.height / 2,
-        canvas.width / 1.5
-    );
-    grad.addColorStop(0, CONFIG.atmosphereColor);
-    grad.addColorStop(1, 'transparent');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-// Draw connections with delay for natural forming effect
-function drawConnections(p, i) {
-    for (let j = i + 1; j < points.length; j++) {
-        const p2 = points[j];
-        const dx = p.x - p2.x;
-        const dy = p.y - p2.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < CONFIG.maxDistance) {
-            const now = Date.now();
-            if (now > p.connectTime && now > p2.connectTime) {
+            if (dist < settings.maxConnectionDist) {
+                // Gradually form connections
+                particles[a].connectionProgress += settings.connectionSpeed;
+                let opacity = Math.min(particles[a].connectionProgress, 1) * (1 - dist / settings.maxConnectionDist);
                 ctx.beginPath();
-                ctx.strokeStyle = CONFIG.webColor;
-                ctx.globalAlpha = 1 - dist / CONFIG.maxDistance;
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(p2.x, p2.y);
+                ctx.moveTo(particles[a].x, particles[a].y);
+                ctx.lineTo(particles[b].x, particles[b].y);
+                ctx.strokeStyle = `rgba(173, 216, 230, ${opacity})`;
+                ctx.lineWidth = 1;
+                ctx.shadowBlur = settings.glowStrength / 2;
+                ctx.shadowColor = "rgba(173, 216, 230, 0.7)";
                 ctx.stroke();
-                ctx.globalAlpha = 1;
+                ctx.shadowBlur = 0;
             }
         }
     }
 }
 
-// Animation loop
+// Atmosphere
+function drawAtmosphere() {
+    let gradient = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 0,
+        canvas.width / 2, canvas.height / 2, canvas.width / 1.5
+    );
+    gradient.addColorStop(0, `rgba(100, 150, 255, ${settings.atmosphereAlpha})`);
+    gradient.addColorStop(1, "transparent");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// Animate
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Background gradient
-    const bgGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    bgGrad.addColorStop(0, '#002f4b');
-    bgGrad.addColorStop(1, '#005f6b');
-    ctx.fillStyle = bgGrad;
+    let bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    bgGradient.addColorStop(0, "#002b55");
+    bgGradient.addColorStop(1, "#004d80");
+    ctx.fillStyle = bgGradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     drawAtmosphere();
 
-    points.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Bounce from edges
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-        // Repel from mouse/touch
-        if (mouse.active) {
-            const dx = p.x - mouse.x;
-            const dy = p.y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 100) {
-                p.vx += dx / dist * 0.05;
-                p.vy += dy / dist * 0.05;
-            }
-        }
-
-        drawDroplet(p);
-        drawConnections(p, i);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
     });
+    drawConnections();
 
     requestAnimationFrame(animate);
 }
