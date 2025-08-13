@@ -1,149 +1,159 @@
 // interactive-bg.js
-const canvas = document.getElementById("interactive-bg");
-const ctx = canvas.getContext("2d");
 
-let particles = [];
-const settings = {
-    particleCount: 80,       // Number of droplets
-    maxConnectionDist: 180,  // Distance for connecting lines
-    particleSize: 3,         // Droplet radius
-    repelStrength: 0.15,     // Repelling force
-    glowStrength: 25,        // Particle glow blur
-    connectionSpeed: 0.03,   // How quickly connections form
-    atmosphereAlpha: 0.08,   // Faint glow around everything
+// ==== CONFIGURABLE SETTINGS ====
+const CONFIG = {
+    dotCount: 120,                // Number of dots
+    maxConnectionDistance: 150,   // Distance for connecting lines
+    dotRadius: 2,                  // Radius of each dot
+    glowIntensity: 15,             // Glow blur size
+    connectionDelay: 250,          // ms delay for line formation
+    dotSpeed: 0.3,                  // Dot movement speed
+    gradientColors: ["#0b1e33", "#001122"], // Background gradient
+    dropletHighlight: true,        // Simulate water droplet sparkle
+    dropletGlowColor: "rgba(100, 200, 255, 0.8)"
 };
 
-let mouse = { x: null, y: null };
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext("2d");
+document.body.prepend(canvas);
 
-// Resize canvas
+let width, height, dots, mouse;
 function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
 }
-resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
-// Mouse / touch tracking
-window.addEventListener("mousemove", e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
+// ==== CREATE DOTS ====
+function createDots() {
+    dots = [];
+    for (let i = 0; i < CONFIG.dotCount; i++) {
+        dots.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * CONFIG.dotSpeed,
+            vy: (Math.random() - 0.5) * CONFIG.dotSpeed,
+            lastConnected: 0
+        });
+    }
+}
+createDots();
+
+mouse = { x: null, y: null, active: false };
+
+function setMouse(x, y) {
+    mouse.x = x;
+    mouse.y = y;
+    mouse.active = true;
+}
+function clearMouse() {
+    mouse.active = false;
+}
+
+// ==== EVENT LISTENERS ====
+window.addEventListener("mousemove", e => setMouse(e.clientX, e.clientY));
 window.addEventListener("touchmove", e => {
-    if (e.touches.length > 0) {
-        mouse.x = e.touches[0].clientX;
-        mouse.y = e.touches[0].clientY;
-    }
-});
+    const t = e.touches[0];
+    setMouse(t.clientX, t.clientY);
+}, { passive: true });
+window.addEventListener("mouseleave", clearMouse);
+window.addEventListener("touchend", clearMouse);
 
-// Particle class
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.7;
-        this.vy = (Math.random() - 0.5) * 0.7;
-        this.connectionProgress = 0; // smooth connection forming
-    }
-
-    update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Bounce on edges
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-        // Mouse repel
-        if (mouse.x && mouse.y) {
-            let dx = this.x - mouse.x;
-            let dy = this.y - mouse.y;
-            let dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 100) {
-                let angle = Math.atan2(dy, dx);
-                let force = (100 - dist) * settings.repelStrength;
-                this.vx += Math.cos(angle) * force;
-                this.vy += Math.sin(angle) * force;
-            }
-        }
-    }
-
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, settings.particleSize, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(173, 216, 230, 0.9)";
-        ctx.shadowBlur = settings.glowStrength;
-        ctx.shadowColor = "rgba(173, 216, 230, 0.8)";
-        ctx.fill();
-        ctx.shadowBlur = 0;
-    }
-}
-
-// Create particles
-function init() {
-    particles = [];
-    for (let i = 0; i < settings.particleCount; i++) {
-        particles.push(new Particle());
-    }
-}
-init();
-
-// Draw connections
-function drawConnections() {
-    for (let a = 0; a < particles.length; a++) {
-        for (let b = a + 1; b < particles.length; b++) {
-            let dx = particles[a].x - particles[b].x;
-            let dy = particles[a].y - particles[b].y;
-            let dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < settings.maxConnectionDist) {
-                // Gradually form connections
-                particles[a].connectionProgress += settings.connectionSpeed;
-                let opacity = Math.min(particles[a].connectionProgress, 1) * (1 - dist / settings.maxConnectionDist);
-                ctx.beginPath();
-                ctx.moveTo(particles[a].x, particles[a].y);
-                ctx.lineTo(particles[b].x, particles[b].y);
-                ctx.strokeStyle = `rgba(173, 216, 230, ${opacity})`;
-                ctx.lineWidth = 1;
-                ctx.shadowBlur = settings.glowStrength / 2;
-                ctx.shadowColor = "rgba(173, 216, 230, 0.7)";
-                ctx.stroke();
-                ctx.shadowBlur = 0;
-            }
-        }
-    }
-}
-
-// Atmosphere
-function drawAtmosphere() {
-    let gradient = ctx.createRadialGradient(
-        canvas.width / 2, canvas.height / 2, 0,
-        canvas.width / 2, canvas.height / 2, canvas.width / 1.5
-    );
-    gradient.addColorStop(0, `rgba(100, 150, 255, ${settings.atmosphereAlpha})`);
-    gradient.addColorStop(1, "transparent");
+// ==== DRAW BACKGROUND ====
+function drawGradientBackground() {
+    const gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, CONFIG.gradientColors[0]);
+    gradient.addColorStop(1, CONFIG.gradientColors[1]);
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, width, height);
 }
 
-// Animate
+// ==== UPDATE DOTS ====
+function updateDots() {
+    for (let d of dots) {
+        d.x += d.vx;
+        d.y += d.vy;
+
+        if (d.x < 0 || d.x > width) d.vx *= -1;
+        if (d.y < 0 || d.y > height) d.vy *= -1;
+    }
+}
+
+// ==== DRAW DOTS ====
+function drawDots() {
+    for (let d of dots) {
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, CONFIG.dotRadius, 0, Math.PI * 2);
+
+        // Glow effect
+        ctx.shadowBlur = CONFIG.glowIntensity;
+        ctx.shadowColor = CONFIG.dropletGlowColor;
+
+        ctx.fillStyle = "rgba(150, 220, 255, 0.9)";
+        ctx.fill();
+
+        // Optional water droplet sparkle
+        if (CONFIG.dropletHighlight && Math.random() < 0.003) {
+            ctx.beginPath();
+            ctx.arc(d.x + Math.random(), d.y - Math.random(), CONFIG.dotRadius / 1.5, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(255,255,255,0.8)";
+            ctx.fill();
+        }
+    }
+}
+
+// ==== DRAW CONNECTIONS ====
+function drawConnections() {
+    for (let i = 0; i < dots.length; i++) {
+        for (let j = i + 1; j < dots.length; j++) {
+            const dx = dots[i].x - dots[j].x;
+            const dy = dots[i].y - dots[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < CONFIG.maxConnectionDistance) {
+                const now = Date.now();
+                if (now - dots[i].lastConnected > CONFIG.connectionDelay) {
+                    ctx.beginPath();
+                    ctx.moveTo(dots[i].x, dots[i].y);
+                    ctx.lineTo(dots[j].x, dots[j].y);
+                    ctx.strokeStyle = `rgba(120, 200, 255, ${1 - dist / CONFIG.maxConnectionDistance})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.shadowBlur = CONFIG.glowIntensity / 2;
+                    ctx.shadowColor = CONFIG.dropletGlowColor;
+                    ctx.stroke();
+                    dots[i].lastConnected = now;
+                }
+            }
+        }
+    }
+
+    // Cursor temporary lines
+    if (mouse.active) {
+        for (let d of dots) {
+            const dx = mouse.x - d.x;
+            const dy = mouse.y - d.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < CONFIG.maxConnectionDistance * 1.2) {
+                ctx.beginPath();
+                ctx.moveTo(mouse.x, mouse.y);
+                ctx.lineTo(d.x, d.y);
+                ctx.strokeStyle = `rgba(150, 220, 255, ${1 - dist / (CONFIG.maxConnectionDistance * 1.2)})`;
+                ctx.lineWidth = 1;
+                ctx.shadowBlur = CONFIG.glowIntensity;
+                ctx.shadowColor = CONFIG.dropletGlowColor;
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+// ==== ANIMATE ====
 function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Background gradient
-    let bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    bgGradient.addColorStop(0, "#002b55");
-    bgGradient.addColorStop(1, "#004d80");
-    ctx.fillStyle = bgGradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    drawAtmosphere();
-
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
+    drawGradientBackground();
+    updateDots();
     drawConnections();
-
+    drawDots();
     requestAnimationFrame(animate);
 }
 animate();
