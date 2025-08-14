@@ -1,423 +1,194 @@
-* {
+/* Import Sansation via Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Sansation:wght@300;400;700&display=swap');
+
+/* Font families setup */
+:root {
+    --font-heading: 'Sansation', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+    --color-bg: #0a0a0a;
+    --color-text: #ffffff;
+    --color-accent: #00bcd4;
+}
+
+/* Global styles */
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-.navbar {
+/* Navbar */
+nav {
     position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 100px;
-    padding: 20px 40px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    z-index: 1000;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: #696969;
-    font-size: 16px;
-    transition: opacity 0.3s;
-}
-
-.navbar a:hover {
-    opacity: 0.7;
-}
-
-html {
-    scroll-behavior: smooth; /* Enables smooth scrolling */
-}
-
-/* Adjust scroll position to account for fixed navbar */
-#work, #about {
-    scroll-margin-top: 100px;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(
-        to bottom,
-        #030814 23%,
-        #07090D 36%,
-        #060910 41%,
-        #001F3E 60%,
-        #001A31 82%,
-        #000E1A 100%
-    );
-    color: #696969;
-}
-
-main {
+    top: 0;
     width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.hero-section {
-    margin-top: 250px;
+nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--color-accent);
+}
+
+/* Hero section (top part with interactive background placeholder) */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+}
+
+/* Publications Section */
+.publications {
+    padding: 5rem 2rem;
+}
+
+.publications h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
     text-align: center;
 }
 
-.hero-section h1 {
-    font-size: 40px;
+.publication-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
 }
 
-.hero-section .light {
-    font-weight: 300;
+.publication-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hero-section .name {
-    font-weight: 600;
+.publication-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-.hero-description {
-    margin: 70px auto 0;
-    font-weight: 300;
-    font-size: 20px;
-    max-width: 753px;
-    text-align: center; /* Added this line */
-    z-index: 900;
+.publication-card img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 1rem;
 }
 
-/* Container for arrow and circle */
-.scroll-indicator {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    margin: 135px auto 0;
-    cursor: pointer;
-    z-index: 1000;
+.publication-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Style for the hover circle */
-.hover-circle {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #FFFFFF;
-    opacity: 0;
-    transition: all 0.3s ease;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) translateY(6px); /* Added 10px downward offset */;
+.publication-card p {
+    font-size: 1rem;
+    opacity: 0.8;
 }
 
-/* Show circle and add shadow on hover */
-.scroll-indicator:hover .hover-circle {
-    opacity: 5;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Adjust arrow position to be centered over circle */
-.scroll-indicator .arrow-down {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    z-index: 1;
-}
-
-/* Keep the existing arrow animation */
-@keyframes bounceDown {
-    0%, 100% {
-        transform: translate(-50%, -50%);
-    }
-    50% {
-        transform: translate(-50%, -30%);
-    }
-    75% {
-        transform: translate(-50%, -55%);
-    }
-}
-
-/* Update arrow animation to work with new positioning */
-.scroll-indicator .arrow-down {
-    animation: bounceDown 1s ease-in-out infinite;
-}
-
+/* Projects section */
 .projects {
-    margin-top: 100px; /* 120trying to make it apprear a bit*/
+    padding: 5rem 2rem;
+}
+
+.projects h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .project-card {
-    width: 1040px;
-    height: 580px;
-    margin: 0 auto 90px;
-    background-color: #F0FFED;
-    border-radius: 50px;
-    padding: 40px;
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    position: relative;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-.project-card:hover {
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* Different colors for each project */
-.project-card:nth-child(1) {
-    background-color: #EDF4FF;
-}
-
-.project-card:nth-child(2) {
-    background-color: #F1F1F1;
-}
-
-.project-card:nth-child(3) {
-    background-color: #F0FFED;
-}
-
-.project-card:nth-child(4) {
-    background-color: #ECF3FF;
-}
-
-.project-card:nth-child(5) {
-    background-color: #F0E8FF;
-}
-
-.project-image {
-    width: 455px;
-    height: 355px;
-    object-fit: cover;
-    border-radius: 20px;
-}
-
-.project-content {
-    margin-left: 50px;
-    width: calc(100% - 505px);
-}
-
-.project-content h2 {
-    color: #2A2A2A;
-    font-size: 36px;
-    font-weight: 500;
-}
-
-.project-content h3 {
-    margin-top: 20px;
-    font-size: 24px;
-    font-weight: 500;
-    color: #696969;
-}
-
-.project-description {
-    margin-top: 36px;
-    font-size: 16px;
-    font-weight: 300;
-    color: #696969;
-}
-
-.project-details {
-    position: absolute;
-    margin-top: 15px; /* Just added now to lift details*/
-    bottom: 70px;
-    left: 60px; /* Added this */
-    display: flex;
-    gap: 60px; /* this was 180*/
-}
-
-.detail-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.detail-group:nth-child(2) {
-    position: relative; /* Allow natural flex alignment */
-    left: auto; /* Remove fixed left positioning */
-    margin-left: 0; /* Reset unnecessary margin */
-    width: auto; /* Adjust width to content */
-}
-
-.detail-label {
-    font-size: 16px;
-    font-weight: 400;
-}
-
-.detail-value {
-    margin-top: 15px; /* 35*/
-    font-size: 24px;
-    font-weight: 500;
-}
-
-.view-project-btn {
-    position: absolute;
-    bottom: 70px;
-    left: 550px; /* Changed from right to left */
-    width: 145px;
-    height: 68px;
-    background-color: #2A2A2A;
-    color: #FFFFFF;
-    border-radius: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
-.view-project-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+.project-card img {
+    width: 50%;
+    border-radius: 8px;
 }
 
-.more-works {
-    width: 580px;
-    height: 320px;
-    margin: 90px auto;
-    background-color: white;
-    border-radius: 50px;
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.project-card div {
+    flex: 1;
 }
 
-.more-works:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+.project-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
 }
 
-.more-works h2 {
-    margin-top: 120px;
-    font-size: 24px;
-    font-weight: 500;
-    color: #696969;
-}
-
-/* For the right arrow in More Works section */
-@keyframes bounceRight {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(10px);
-    }
-    75% {
-        transform: translateX(-3px);
-    }
-}
-
-.arrow-right {
-    margin-top: 50px;
-    animation: bounceRight 2s ease-in-out infinite;
-}
-
-.arrow-down:hover, .arrow-right:hover {
-    animation-play-state: paused;
-} /*pause animation on hover*/
-
-/* CSS Styles */
+/* About section */
 .about {
-    background-color: #363636;
-    padding: 10px 0;
+    padding: 5rem 2rem;
     text-align: center;
 }
 
-.about h2 {
-    color: #FFFFFF;
-    font-size: 36px;
-    font-weight: 300;
-    margin-bottom: 60px;
-    margin-top: 10px;
-}
-
-.profile-image {
-    width: 285px;
-    height: 285px;
+.about img {
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
+    margin-bottom: 1.5rem;
 }
 
-.quote {
-    margin-top: 60px;
-    color: #FFFFFF;
-    font-size: 24px;
-    font-weight: 300;
+.about p {
+    max-width: 700px;
+    margin: 0 auto;
 }
 
-/* New container for social links */
-.social-container {
-    width: 100%;
-    margin-top: 75px;
+/* Footer */
+footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.8);
 }
 
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap; /* Added for responsiveness */
-    max-width: 800px; /* Maximum width to maintain layout */
-    margin: 0 auto; /* Center the container */
-}
-
-.social-link {
+footer a {
+    color: var(--color-accent);
+    margin: 0 0.5rem;
     text-decoration: none;
-    color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s ease;
 }
 
-.social-link:hover {
-    transform: translateY(-5px);
-}
+/* Responsive */
+@media (max-width: 768px) {
+    .project-card {
+        flex-direction: column;
+    }
 
-.social-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    transition: box-shadow 0.3s ease;
-}
-
-.social-link:hover .social-icon {
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.social-link span {
-    font-size: 13px;
-    font-weight: 300;
-    font-family: 'Poppins', sans-serif;
-    color: #FFFFFF;
-}
-
-/* Footer styles */
-.footer-content {
-    width: 100%;
-    margin-top: 90px;
-    padding: 0 20px; /* Added padding for mobile */
-    box-sizing: border-box;
-}
-
-.footer-content .name {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: #FFFFFF;
-    display: block;
-    margin-bottom: 30px;
-}
-
-.footer-content .copyright {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    color: #FFFFFF;
-    display: block;
-    padding-bottom: 70px; /* Changed from margin to padding */
+    .project-card img {
+        width: 100%;
+    }
 }
