@@ -39,7 +39,15 @@ html {
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: white;
+    background: linear-gradient(
+        to bottom,
+        #030814 23%,
+        #07090D 36%,
+        #060910 41%,
+        #001F3E 60%,
+        #001A31 82%,
+        #000E1A 100%
+    );
     color: #696969;
 }
 
