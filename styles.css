@@ -95,6 +95,7 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) translateY(6px); /* Added 10px downward offset */;
+    z-index: 1000;
 }
 
 /* Show circle and add shadow on hover */
