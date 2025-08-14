@@ -18,7 +18,7 @@
     transition: transform 0.3s ease;
 }
 
-.navbar.hidden {
+.navbar.nav-hidden {
     transform: translateX(-50%) translateY(-100%);
 }
 
@@ -36,10 +36,9 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Enables smooth scrolling */
+    scroll-behavior: smooth;
 }
 
-/* Adjust scroll position to account for fixed navbar */
 #publications, #projects, #about {
     scroll-margin-top: 100px;
 }
@@ -70,16 +69,15 @@ main {
     text-align: center;
 }
 
-.hero-title-img {
+.hero-heading-image {
     display: block;
     margin: 0 auto;
-    /* Assume size based on Figma; adjust as needed */
-    width: auto;
+    width: 600px; /* Adjusted to prevent oversized; tweak based on actual PNG dimensions */
     height: auto;
 }
 
 .hero-description {
-    margin: 50px auto 0; /* Adjusted margin to approximate position */
+    margin: 50px auto 0;
     font-family: 'Sansation';
     font-weight: 300;
     font-size: 24px;
@@ -90,17 +88,17 @@ main {
     z-index: 900;
 }
 
-/* Container for arrow and circle */
 .scroll-indicator {
     position: relative;
     width: 75px;
     height: 75px;
-    margin: 200px auto 0; /* Adjusted to approximate y=891 */
+    margin: 200px auto 0;
     cursor: pointer;
     z-index: 1000;
+    background: none;
+    border: none;
 }
 
-/* Style for the hover circle */
 .hover-circle {
     position: absolute;
     width: 75px;
@@ -115,13 +113,11 @@ main {
     transform: translate(-50%, -50%);
 }
 
-/* Show circle and add shadow on hover */
 .scroll-indicator:hover .hover-circle {
     opacity: 1;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Adjust arrow position to be centered over circle */
 .scroll-indicator .arrow-down {
     position: absolute;
     top: 50%;
@@ -129,14 +125,11 @@ main {
     transform: translate(-50%, -50%);
     margin: 0;
     z-index: 1;
-    width: 20px; /* Approximate arrow size */
-    height: 20px;
-    /* Assume arrow is white and thick */
     stroke: #FFFFFF;
     stroke-width: 3;
+    fill: none;
 }
 
-/* Keep the existing arrow animation */
 @keyframes bounceDown {
     0%, 100% {
         transform: translate(-50%, -50%);
@@ -149,22 +142,20 @@ main {
     }
 }
 
-/* Update arrow animation to work with new positioning */
 .scroll-indicator .arrow-down {
     animation: bounceDown 1s ease-in-out infinite;
 }
 
-.publications,
-.projects {
+.publications-section,
+.projects-wrap {
     padding: 0 194px;
 }
 
-.publications {
-    margin-top: 200px; /* Adjusted to approximate y=1201 */
+.publications-section {
+    margin-top: 200px;
 }
 
-.publications h2,
-.projects h2 {
+.section-title {
     font-family: 'Sansation';
     font-weight: 700;
     font-size: 36px;
@@ -172,7 +163,7 @@ main {
     margin-bottom: 60px;
 }
 
-.publication-card {
+.pub-card {
     width: 100%;
     height: 123px;
     background-color: rgba(0, 125, 255, 0.07);
@@ -181,99 +172,107 @@ main {
     align-items: center;
     justify-content: space-between;
     padding: 0 40px;
-    margin-bottom: 20px; /* Gap between cards */
+    margin-bottom: 20px;
     text-decoration: none;
     color: #696969;
 }
 
-.publication-card h3 {
-    font-size: 24px; /* Assumed size */
+.pub-title {
+    font-size: 24px;
     font-weight: 300;
 }
 
-.publication-card h3 .regular {
+.pub-title-regular {
     font-weight: 400;
 }
 
-.publication-card .link-icon {
-    width: 20px;
-    height: 20px;
-    /* Assume src in HTML; style as needed */
+.pub-card-icon {
+    width: 24px;
+    height: 24px;
+    color: #696969;
 }
 
-.section-divider {
+.dotted-divider {
     border: 0;
     border-top: 1px dotted #696969;
     margin: 60px 194px;
 }
 
-.projects {
-    margin-top: 100px; /* Adjusted spacing after divider */
+.projects-wrap {
+    margin-top: 100px;
 }
 
-.project-card {
+.project-row {
     width: 100%;
     height: 360px;
-    background-color: #F0FFED; /* Keep original as base; adjust per child */
-    border-radius: 50px;
     display: flex;
     align-items: center;
     position: relative;
-    transition: box-shadow 0.3s ease;
+    overflow: visible;
     margin-bottom: 90px;
-    overflow: visible; /* Allow image overflow */
-    padding: 0 40px;
+    transition: box-shadow 0.3s ease;
 }
 
-.project-card:hover {
+.project-row:hover {
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Different colors for each project */
-.project-card:nth-child(1) {
-    background-color: #EDF4FF;
+.project-left {
+    flex-direction: row;
 }
 
-.project-card:nth-child(2) {
-    background-color: #F1F1F1;
-}
-
-.project-card:nth-child(3) {
-    background-color: #F0FFED;
-}
-
-/* Alternating layout */
-.project-card:nth-child(even) {
+.project-right {
     flex-direction: row-reverse;
 }
 
-.project-card:nth-child(even) .project-content {
-    margin-left: 0;
-    margin-right: 50px;
+.project-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 50px;
+    z-index: -1;
+}
+
+.project-row:nth-child(1) .project-bg {
+    background-color: #EDF4FF;
+}
+
+.project-row:nth-child(2) .project-bg {
+    background-color: #F1F1F1;
+}
+
+.project-row:nth-child(3) .project-bg {
+    background-color: #F0FFED;
+}
+
+.project-media {
+    flex: 0 0 850px;
 }
 
 .project-image {
     width: 850px;
-    height: 360px; /* Fit card height, but allow overflow if needed */
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     border-radius: 20px;
 }
 
 .project-content {
-    margin-left: 50px;
-    width: calc(100% - 900px); /* Image 850 + 50 gap */
+    padding: 0 50px;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-.project-content h2 {
+.project-title {
     color: #2A2A2A;
     font-family: 'Sansation';
     font-weight: 700;
     font-size: 32px;
 }
 
-.project-description {
+.project-text {
     margin-top: 20px;
     font-family: 'Sansation';
     font-weight: 300;
@@ -281,8 +280,8 @@ main {
     color: #696969;
 }
 
-.view-project-btn {
-    margin-top: 50px; /* Adjusted spacing */
+.project-btn {
+    margin-top: 50px;
     width: 145px;
     height: 68px;
     background-color: transparent;
@@ -299,7 +298,7 @@ main {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.view-project-btn:hover {
+.project-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -324,7 +323,7 @@ main {
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.more-works h2 {
+.more-works-title {
     margin-top: 120px;
     font-family: 'Sansation';
     font-weight: 400;
@@ -332,7 +331,6 @@ main {
     color: #696969;
 }
 
-/* For the right arrow in More Works section */
 @keyframes bounceRight {
     0%, 100% {
         transform: translateX(0);
@@ -352,35 +350,43 @@ main {
 
 .arrow-down:hover, .arrow-right:hover {
     animation-play-state: paused;
-} /*pause animation on hover*/
+}
 
-/* About section */
 .about {
     background-color: #363636;
     padding: 100px 194px 0;
     color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 60px;
 }
 
-.about h2 {
+.profile-image {
+    width: 285px;
+    height: 285px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.hello-world {
     font-family: 'Sansation';
     font-weight: 400;
     font-size: 32px;
     margin-bottom: 30px;
-    margin-left: 640px; /* To approximate x=834 */
 }
 
-.about .quote { /* Reused for description */
+.about-text {
     font-family: 'Sansation';
     font-weight: 300;
     font-size: 24px;
     max-width: 892px;
-    margin-left: 640px; /* To approximate x=834 */
     margin-top: 0;
     margin-bottom: 100px;
     color: #FFFFFF;
 }
 
-/* New container for social links */
 .social-container {
     width: 100%;
     margin-top: 75px;
@@ -412,7 +418,7 @@ main {
 .social-icon {
     width: 50px;
     height: 50px;
-    border-radius: 50%; /* Changed to full circle */
+    border-radius: 50%;
     margin-bottom: 10px;
     transition: box-shadow 0.3s ease;
 }
@@ -428,8 +434,7 @@ main {
     color: #FFFFFF;
 }
 
-/* Footer styles */
-.footer-content {
+.signature-wrap {
     width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
@@ -437,15 +442,14 @@ main {
     background-color: #363636;
 }
 
-.footer-name-img {
+.signature-image {
     display: block;
     margin: 0 auto 20px;
-    /* Assume size for name image */
     width: auto;
     height: auto;
 }
 
-.footer-content .copyright {
+.copyright {
     font-family: 'Sansation';
     font-size: 20px;
     font-weight: 400;
