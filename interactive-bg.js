@@ -3,13 +3,13 @@
 // ==== CONFIGURABLE SETTINGS ====
 const CONFIG = {
     dotCount: 120,                // Number of dots
-    maxConnectionDistance: 150,   // Distance for connecting lines
+    maxConnectionDistance: 200,   // Distance for connecting lines
     dotRadius: 2,                  // Radius of each dot
     glowIntensity: 15,             // Glow blur size
     connectionDelay: 250,          // ms delay for line formation
     dotSpeed: 0.3,                  // Dot movement speed
     gradientColors: ["#0b1e33", "#001122"], // Background gradient
-    dropletHighlight: true,        // Simulate water droplet sparkle
+    dropletHighlight: false,        // Simulate water droplet sparkle
     dropletGlowColor: "rgba(100, 200, 255, 0.8)"
 };
 
