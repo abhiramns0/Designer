@@ -175,14 +175,14 @@ main {
 
 .pub-card {
     width: 100%;
-    height: 110px;
+    height: 100px; /* 110 */
     background-color: rgba(0, 125, 255, 0.07);
     border-radius: 35px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 35px;
-    margin-bottom: 15px;
+    padding: 0 50px; /* 0 35 */
+    margin-bottom: 45px; /* 15 */
     text-decoration: none;
     color: #FFFFFF;
     transition: box-shadow 0.3s ease;
@@ -209,8 +209,8 @@ main {
 
 .dotted-divider {
     border: 0;
-    border-top: 1px dotted #FFFFFF;
-    margin: 50px 150px;
+    border-top: 10px dotted #FFFFFF; /* 1 */
+    margin: 150px 0px;   /* 50px 150px */
 }
 
 .projects-wrap {
@@ -320,8 +320,8 @@ main {
 }
 
 .more-works {
-    width: 500px;
-    height: 280px;
+    width: 400px; /* 500 */
+    height: 250px; /* 280 */
     margin: 80px auto;
     background-color: rgba(255, 255, 255, 0.08);
     border-radius: 40px;
