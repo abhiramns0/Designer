@@ -209,9 +209,8 @@ main {
 
 .dotted-divider {
     border: 0;
-    border-top: 1px dotted #FFFFFF; /* 1 */
+    border-top: 1px dotted #52555E; /* 1 */
     margin: 150px 0px;   /* 50px 150px */
-    color: #52555E;
 }
 
 .projects-wrap {
@@ -322,8 +321,8 @@ main {
 }
 
 .more-works {
-    width: 400px; /* 500 */
-    height: 250px; /* 280 */
+    width: 350px; /* 500 */
+    height: 220px; /* 280 */
     margin: 80px auto;
     background-color: rgba(255, 255, 255, 0.08);
     border-radius: 40px;
@@ -342,10 +341,10 @@ main {
 }
 
 .more-works-title {
-    margin-top: 100px;
+    margin-top: 72px;
     font-family: 'Sansation';
     font-weight: 400;
-    font-size: 32px;
+    font-size: 26px;
     color: #FFFFFF;
 }
 
