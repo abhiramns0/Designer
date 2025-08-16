@@ -115,7 +115,7 @@ main {
     border-radius: 50%;
     background-color: transparent;
     border: 1px solid #FFFFFF;
-    opacity: 0;
+    opacity: 3; /* 0 */
     transition: all 0.3s ease;
     top: 50%;
     left: 50%;
@@ -135,7 +135,7 @@ main {
     margin: 0;
     z-index: 1;
     stroke: #FFFFFF;
-    stroke-width: 2.5;
+    stroke-width: 1; /* 2.5 */
     fill: none;
 }
 
@@ -157,11 +157,11 @@ main {
 
 .publications-section,
 .projects-wrap {
-    padding: 0 150px;
+    padding: 50 200px; /* 0 150 */
 }
 
 .publications-section {
-    margin-top: 150px;
+    margin-top: 100px; /* 150 */
 }
 
 .section-title {
@@ -169,13 +169,13 @@ main {
     font-weight: 700;
     font-size: 32px;
     color: #FFFFFF; /* FFFFFF */
-    margin-bottom: 100px; /* 50 */
+    margin-bottom: 50px; /* 50 */
     text-align: left;
 }
 
 .pub-card {
     width: 100%;
-    height: 90px; /* 110 */
+    height: 100px; /* 110 */
     background-color: rgba(0, 125, 255, 0.07);
     border-radius: 35px;
     display: flex;
@@ -238,10 +238,12 @@ main {
 
 .project-bg {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    bottom: -50%;
+    left: -500; /* 0*/
+    right: -500; /* 0*/
+    /* top: 50%;
+    bottom: -50%; */
+    top: 30%;
+    height: 400px; 
     border-radius: 0px; /* 40 */
     z-index: -1;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
