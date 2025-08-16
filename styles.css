@@ -239,8 +239,8 @@ main {
 
 .project-bg {
     position: absolute;
-    left: -200px;
-    right: -200px;
+    left: -100px;
+    right: -100px;
     top: 50%;
     transform: translateY(-50%);
     height: 400px;
@@ -254,16 +254,26 @@ main {
 }
 
 .project-row:nth-child(2) .project-bg {
-    background-color: rgba(2, 23, 47, 0.35);
+    background-color: rgba(2, 23, 47, 0.55);
 }
 
 .project-row:nth-child(3) .project-bg {
     background-color: rgba(0, 35, 70, 0.87);
 }
 
-.project-media {
-    flex: 0 0 800px; /* 0 0 700 */
-    margin: 0 0px; /* 0 50 */
+/* .project-media { */
+/*    flex: 0 0 800px; /* 0 0 700 */ 
+/*    margin: 0 0px; /* 0 50 */
+/* } */
+
+.project-left .project-media {
+    flex: 0 0 800px;
+    margin: 0 80px 0 -150px; /* Push image left, content flows right */
+}
+
+.project-right .project-media {
+    flex: 0 0 800px;
+    margin: 0 -150px 0 80px; /* Push image right, content flows left */
 }
 
 .project-image {
