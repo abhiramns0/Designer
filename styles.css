@@ -239,8 +239,8 @@ main {
 
 .project-bg {
     position: absolute;
-    left: -100px;
-    right: -100px;
+    left: -200px;
+    right: -200px;
     top: 50%;
     transform: translateY(-50%);
     height: 400px;
@@ -250,11 +250,11 @@ main {
 }
 
 .project-row:nth-child(1) .project-bg {
-    background-color: rgba(5, 15, 28, 0.55);
+    background-color: rgba(4, 16, 28, 0.45);
 }
 
 .project-row:nth-child(2) .project-bg {
-    background-color: rgba(2, 25, 51, 0.55);
+    background-color: rgba(2, 23, 47, 0.35);
 }
 
 .project-row:nth-child(3) .project-bg {
@@ -324,7 +324,7 @@ main {
     width: 350px; /* 500 */
     height: 220px; /* 280 */
     margin: 80px auto;
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.04);
     border-radius: 40px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -421,6 +421,7 @@ main {
     height: 423px;
     border-radius: 50%;
     object-fit: cover;
+    opacity: 0.7;
 }
 
 .about-content {
