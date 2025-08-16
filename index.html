@@ -212,51 +212,51 @@
     });
 
     // Hide-on-scroll navbar
-    (function () {
-      const nav = document.querySelector('.navbar[data-behavior="hide-on-scroll"]');
-      if (!nav) return;
+// Hide-on-scroll navbar
+(function () {
+  const nav = document.querySelector('.navbar[data-behavior="hide-on-scroll"]');
+  if (!nav) return;
 
-      let lastY = window.scrollY;
-      let ticking = false;
-      const threshold = 10;
+  let lastY = window.scrollY;
+  let ticking = false;
+  const threshold = 50; // Increased threshold for better detection
 
-      function onScroll() {
-        const currentY = window.scrollY;
-        if (Math.abs(currentY - lastY) < threshold) return;
-
-        // At top: transparent & visible
-        if (currentY <= 0) {
+  function onScroll() {
+    const currentY = window.scrollY;
+    
+    // At top: transparent & visible
+    if (currentY <= 50) {
+      nav.classList.remove('nav-hidden');
+      nav.classList.add('nav-top');
+    } else {
+      nav.classList.remove('nav-top');
+      
+      // Only hide/show if scroll difference is significant
+      if (Math.abs(currentY - lastY) > threshold) {
+        if (currentY > lastY && currentY > 100) {
+          // Scrolling down past 100px -> hide
+          nav.classList.add('nav-hidden');
+        } else if (currentY < lastY) {
+          // Scrolling up -> show
           nav.classList.remove('nav-hidden');
-          nav.classList.add('nav-top');
-        } else {
-          nav.classList.remove('nav-top');
-          // Scrolling down -> hide
-          if (currentY > lastY) {
-            nav.classList.add('nav-hidden');
-          } else {
-            // Scrolling up -> show
-            nav.classList.remove('nav-hidden');
-          }
         }
-
         lastY = currentY;
-        ticking = false;
       }
+    }
+    
+    ticking = false;
+  }
 
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            onScroll();
-          });
-          ticking = true;
-        }
-      });
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  });
 
-      // Init state
-      if (window.scrollY <= 0) {
-        nav.classList.add('nav-top');
-      }
-    })();
+  // Init state
+  nav.classList.add('nav-top');
+})();
 
     // (Optional) Minimal animation controller kept from your previous file
     class AnimationController {
