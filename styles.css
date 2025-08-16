@@ -240,8 +240,8 @@ main {
 
 .project-bg {
     position: absolute;
-    left: -300px;
-    right: -300px;
+    left: -100px;
+    right: -100px;
     top: 50%;
     transform: translateY(-50%);
     height: 400px;
@@ -251,11 +251,11 @@ main {
 }
 
 .project-row:nth-child(1) .project-bg {
-    background-color: rgba(5, 15, 28, 0.95);
+    background-color: rgba(5, 15, 28, 0.55);
 }
 
 .project-row:nth-child(2) .project-bg {
-    background-color: rgba(2, 25, 51, 0.9);
+    background-color: rgba(2, 25, 51, 0.55);
 }
 
 .project-row:nth-child(3) .project-bg {
