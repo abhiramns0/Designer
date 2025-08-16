@@ -250,11 +250,11 @@ main {
 }
 
 .project-row:nth-child(1) .project-bg {
-    background-color: rgba(0, 23, 47, 0.25);
+    background-color: rgba(0, 23, 47, 0.35);
 }
 
 .project-row:nth-child(2) .project-bg {
-    background-color: rgba(0, 37, 76, 0.07);
+    background-color: rgba(3, 22, 44, 0.17);
 }
 
 .project-row:nth-child(3) .project-bg {
@@ -268,7 +268,7 @@ main {
 
 .project-left .project-media {
     flex: 0 0 800px;
-    margin: 0 80px 0 -150px; /* Push image left, content flows right */
+    margin: 0 80px 0 -120px; /* Push image left, content flows right */
 }
 
 .project-right .project-media {
