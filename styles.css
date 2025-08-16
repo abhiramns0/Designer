@@ -27,7 +27,7 @@
 }
 
 .navbar:not(.nav-top) {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.04);
 }
 
 .navbar a {
@@ -383,11 +383,20 @@ main {
     background: transparent;
 }
 
+.about-main {
+    display: flex;
+    align-items: center;
+    gap: 150px;
+    max-width: 1200px;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
 .profile-container {
     position: relative;
     width: 500px;
     height: 500px;
-    margin-bottom: 40px;
+    flex-shrink: 0;
 }
 
 .profile-frame {
@@ -412,9 +421,8 @@ main {
 }
 
 .about-content {
-    max-width: 800px;
-    text-align: center;
-    margin-bottom: 60px;
+    flex: 1;
+    max-width: 550px;
 }
 
 .hello-world {
@@ -422,6 +430,7 @@ main {
     font-weight: 400;
     font-size: 28px;
     margin-bottom: 25px;
+    text-align: left;
 }
 
 .about-text {
@@ -430,6 +439,7 @@ main {
     font-size: 20px;
     line-height: 30px;
     color: #FFFFFF;
+    text-align: left;
 }
 
 .social-container {
@@ -441,9 +451,9 @@ main {
 .social-links {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 250px;
     flex-wrap: wrap;
-    max-width: 600px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
