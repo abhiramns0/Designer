@@ -89,7 +89,7 @@ main {
     margin: 40px auto 0;
     font-family: 'Sansation';
     font-weight: 300;
-    font-size: 20px;
+    font-size: 19px;
     max-width: 700px;
     text-align: center;
     letter-spacing: 0.08em;
@@ -209,8 +209,9 @@ main {
 
 .dotted-divider {
     border: 0;
-    border-top: 10px dotted #FFFFFF; /* 1 */
+    border-top: 1px dotted #FFFFFF; /* 1 */
     margin: 150px 0px;   /* 50px 150px */
+    color: #52555E;
 }
 
 .projects-wrap {
@@ -289,7 +290,7 @@ main {
 }
 
 .project-text {
-    margin-top: 15px;
+    margin-top: 25px;
     font-family: 'Sansation';
     font-weight: 300;
     font-size: 16px;
