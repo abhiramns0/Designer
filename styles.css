@@ -15,11 +15,19 @@
     background-color: transparent;
     border-radius: 20px;
     z-index: 1000;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .navbar.nav-hidden {
     transform: translateX(-50%) translateY(-100%);
+}
+
+.navbar.nav-top {
+    background-color: transparent;
+}
+
+.navbar:not(.nav-top) {
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .navbar a {
@@ -62,11 +70,11 @@ main {
     width: 100%;
     max-width: 1920px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0;
 }
 
 .hero-section {
-    margin-top: 200px;
+    margin-top: 100px;
     text-align: center;
 }
 
@@ -211,17 +219,13 @@ main {
 
 .project-row {
     width: 100%;
-    min-height: 400px;
+    min-height: 200px;
     display: flex;
     align-items: center;
     position: relative;
     overflow: visible;
     margin-bottom: 120px;
     transition: box-shadow 0.3s ease;
-}
-
-.project-row:hover {
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 }
 
 .project-left {
@@ -234,24 +238,25 @@ main {
 
 .project-bg {
     position: absolute;
-    left: 50px;
-    right: 50px;
-    top: 0;
-    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 50%;
+    bottom: -50%;
     border-radius: 40px;
     z-index: -1;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 }
 
 .project-row:nth-child(1) .project-bg {
-    background-color: #EDF4FF;
+    background-color: rgba(1, 29, 59, 0.32);
 }
 
 .project-row:nth-child(2) .project-bg {
-    background-color: #F1F1F1;
+    background-color: rgba(0, 78, 159, 0.07);
 }
 
 .project-row:nth-child(3) .project-bg {
-    background-color: #F0FFED;
+    background-color: rgba(0, 35, 70, 0.87);
 }
 
 .project-media {
@@ -264,7 +269,6 @@ main {
     height: auto;
     object-fit: contain;
     border-radius: 20px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .project-content {
@@ -317,7 +321,7 @@ main {
     width: 500px;
     height: 280px;
     margin: 80px auto;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.08);
     border-radius: 40px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -359,9 +363,11 @@ main {
 
 .arrow-right {
     animation: bounceRight 2s ease-in-out infinite;
-    stroke: #696969;
+    stroke: #FFFFFF;
     stroke-width: 2.5;
     fill: none;
+    width: 40px;
+    height: 20px;
 }
 
 .arrow-down:hover, .arrow-right:hover {
@@ -372,19 +378,43 @@ main {
     padding: 80px 150px 0;
     color: #FFFFFF;
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 80px;
+    flex-direction: column;
+    align-items: center;
     background: transparent;
 }
 
+.profile-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin-bottom: 40px;
+}
+
+.profile-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.08);
+    z-index: -1;
+}
+
 .profile-image {
-    width: 250px;
-    height: 250px;
+    position: absolute;
+    top: 38.5px;
+    left: 38.5px;
+    width: 423px;
+    height: 423px;
     border-radius: 50%;
     object-fit: cover;
-    flex-shrink: 0;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.about-content {
+    max-width: 800px;
+    text-align: center;
+    margin-bottom: 60px;
 }
 
 .hello-world {
@@ -398,11 +428,8 @@ main {
     font-family: 'Sansation';
     font-weight: 300;
     font-size: 20px;
-    max-width: 800px;
-    margin-top: 0;
-    margin-bottom: 80px;
-    color: #FFFFFF;
     line-height: 30px;
+    color: #FFFFFF;
 }
 
 .social-container {
@@ -468,7 +495,7 @@ main {
 
 .copyright {
     font-family: 'Sansation';
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 400;
     color: #FFFFFF;
     display: block;
