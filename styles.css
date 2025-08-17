@@ -250,7 +250,7 @@ main {
 }
 
 .project-row:nth-child(1) .project-bg {
-    background-color: rgba(0, 78, 159, 0.07);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .project-row:nth-child(2) .project-bg {
@@ -258,7 +258,7 @@ main {
 }
 
 .project-row:nth-child(3) .project-bg {
-    background-color: rgba(0, 35, 71, 0.87);
+    background-color: rgba(0, 78, 159, 0.07);
 }
 
 /* .project-media { */
