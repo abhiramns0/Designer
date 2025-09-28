@@ -637,7 +637,7 @@ main {
         text-align: center;
         margin-bottom: 80px;
         position: relative;
-        padding-bottom: 15px; /* ← Adds visual space for background overflow */
+        padding-bottom: 25px; /* Increased from 15px to 25px for external breathing space */
     }
     
     .project-left .project-media,
@@ -658,7 +658,7 @@ main {
         max-width: 100%;
         z-index: 1;
         position: relative;
-        padding: 25px 40px 40px 40px;
+        padding: 25px 40px 60px 40px; /* Changed bottom padding from 40px to 60px (+20px) */
         border-radius: 20px;
         margin-top: 20px;
     }
@@ -672,8 +672,8 @@ main {
         left: -50px;
         right: -50px;
         top: auto;
-        bottom: -15px;
-        height: 280px;
+        bottom: -25px; /* Changed from -15px to -25px for external breathing space */
+        height: 300px; /* Increased from 280px to 300px to match padding increase */
         z-index: 0;
         border-radius: 20px;
     }
@@ -810,7 +810,7 @@ main {
         flex-direction: column !important;
         text-align: center;
         position: relative;
-        padding-bottom: 10px; /* ← Adds visual space for background overflow */
+        padding-bottom: 20px; /* Increased from 10px to 20px for external breathing space */
     }
     
     .project-left .project-media,
@@ -831,7 +831,7 @@ main {
         max-width: 100%;
         z-index: 1;
         position: relative;
-        padding: 25px 30px 35px 30px;
+        padding: 25px 30px 55px 30px; /* Changed bottom padding from 35px to 55px (+20px) */
         border-radius: 15px;
         margin-top: 20px;
         align-items: center;
@@ -865,8 +865,8 @@ main {
         left: -25px;
         right: -25px;
         top: auto;
-        bottom: -10px; /* 0 */
-        height: 250px;
+        bottom: -20px; /* Changed from -10px to -20px for external breathing space */
+        height: 270px; /* Increased from 250px to 270px to match padding increase */
         z-index: 0;
         border-radius: 15px;
     }
