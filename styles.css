@@ -631,6 +631,32 @@ main {
         font-size: 28px;
         margin-bottom: 40px;
     }
+
+        .pub-card {
+        height: auto;
+        min-height: 80px;
+        padding: 30px 50px 20px 25px; /* Adjusted to reserve space for icon */
+        border-radius: 25px;
+        margin-bottom: 25px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        position: relative; /* Added to anchor absolute icon */
+    }
+    .pub-title {
+        font-size: 16px;
+        text-align: left;
+        width: 100%;
+        padding-right: 24px; /* Added to ensure text wraps before icon */
+    }
+    .pub-card-icon {
+        position: absolute; /* Changed to pin icon in top-right */
+        top: 25px; /* Matches small phone optimal positioning, adjusted for padding */
+        right: 25px; /* Matches right padding offset */
+        margin-top: 0; /* Removed to avoid offset */
+        width: 16px;
+        height: 16px;
+    }
     
     .project-row {
         flex-direction: column !important;
@@ -675,7 +701,7 @@ main {
         bottom: -25px; /* Changed from -15px to -25px for external breathing space */
         height: 300px; /* Increased from 280px to 300px to match padding increase */
         z-index: 0;
-        border-radius: 20px;
+        border-radius: 64px;
     }
     
     .project-btn {
@@ -786,23 +812,27 @@ main {
     .pub-card {
         height: auto;
         min-height: 80px;
-        padding: 20px 25px;
+        padding: 20px 50px 20px 25px; /* Adjusted to reserve space for icon */
         border-radius: 25px;
         margin-bottom: 25px;
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
+        position: relative; /* Added to anchor absolute icon */
     }
-    
     .pub-title {
         font-size: 16px;
         text-align: left;
         width: 100%;
+        padding-right: 24px; /* Added to ensure text wraps before icon */
     }
-    
     .pub-card-icon {
-        align-self: flex-end;
-        margin-top: -30px;
+        position: absolute; /* Changed to pin icon in top-right */
+        top: 55px; /* Matches small phone optimal positioning, adjusted for padding */
+        right: 25px; /* Matches right padding offset */
+        margin-top: 0; /* Removed to avoid offset */
+        width: 16px;
+        height: 16px;
     }
     
     .project-row {
@@ -865,10 +895,10 @@ main {
         left: -25px;
         right: -25px;
         top: 100;
-        bottom: -150px; /* Increased from -10px to -30px for full coverage 88888 */
+        bottom: -140px; /* Increased from -10px to -30px for full coverage 88888 */
         height: 300px; /* Stretches to cover content */
         z-index: 0;
-        border-radius: 15px;
+        border-radius: 32px;
     }
     
     .pub-card-icon {
@@ -989,12 +1019,23 @@ main {
     }
     
     .pub-card {
-        padding: 18px 20px;
+        padding: 18px 40px 18px 20px; /* Adjusted to reserve space for icon */
         border-radius: 20px;
+        position: relative; /* Added to anchor absolute icon */
     }
     
     .pub-title {
         font-size: 15px;
+        padding-right: 20px; /* Added to ensure text wraps before icon */
+    }
+
+    .pub-card-icon {
+        position: absolute; /* Changed to pin icon in top-right */
+        top: 50px; /* Matches top padding of pub-card */
+        right: 20px; /* Matches right padding offset */
+        margin-top: 0; /* Removed to avoid offset */
+        width: 14px;
+        height: 14px;
     }
     
     .project-row {
@@ -1050,7 +1091,7 @@ main {
         bottom: -5;
         height: 300px; /* 888888 increased */
         z-index: 0;
-        border-radius: 12px;
+        border-radius: 32px;
     }
     
     .pub-card-icon {
