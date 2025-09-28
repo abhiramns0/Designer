@@ -810,7 +810,7 @@ main {
         flex-direction: column !important;
         text-align: center;
         position: relative;
-        padding-bottom: 20px; /* Increased from 10px to 20px for external breathing space */
+        padding-bottom: 20px; /* Increased from 10px to 20px to match background offset */
     }
     
     .project-left .project-media,
@@ -831,7 +831,7 @@ main {
         max-width: 100%;
         z-index: 1;
         position: relative;
-        padding: 25px 30px 55px 30px; /* Changed bottom padding from 35px to 55px (+20px) */
+        padding: 25px 30px 55px 30px; /* Increased bottom padding from 35px to 55px (+20px) */
         border-radius: 15px;
         margin-top: 20px;
         align-items: center;
@@ -860,13 +860,13 @@ main {
         align-self: center;
     }
     
-    .project-bg {
+    project-bg {
         position: absolute;
         left: -25px;
         right: -25px;
-        top: auto;
-        bottom: -20px; /* Changed from -10px to -20px for external breathing space */
-        height: 270px; /* Increased from 250px to 270px to match padding increase */
+        top: 0; /* Changed from top: auto to anchor at row top */
+        bottom: -20px; /* Changed from -10px to -20px for breathing space */
+        height: auto; /* Changed from 250px to auto to cover full content */
         z-index: 0;
         border-radius: 15px;
     }
