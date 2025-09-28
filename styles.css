@@ -810,7 +810,7 @@ main {
         flex-direction: column !important;
         text-align: center;
         position: relative;
-        padding-bottom: 20px; /* Increased from 10px to 20px to match background offset */
+        padding-bottom: 30px; /* Increased from 10px to 30px to match background offset */
     }
     
     .project-left .project-media,
@@ -831,9 +831,9 @@ main {
         max-width: 100%;
         z-index: 1;
         position: relative;
-        padding: 25px 30px 55px 30px; /* Increased bottom padding from 35px to 55px (+20px) */
+        padding: 25px 30px 65px 30px; /* Increased bottom padding from 35px to 65px */
         border-radius: 15px;
-        margin-top: 20px;
+        margin-top: 10px; /* Reduced from 20px to 10px to shrink image-content gap */
         align-items: center;
     }
     
@@ -853,20 +853,20 @@ main {
     }
     
     .project-btn {
-        margin: 25px auto 0 auto;
+        margin: 15px auto 0 auto; /* Reduced from 25px to 15px to fit within background */
         width: 100px;
         height: 45px;
         font-size: 13px;
         align-self: center;
     }
     
-    project-bg {
+    .project-bg {
         position: absolute;
         left: -25px;
         right: -25px;
-        top: 0; /* Changed from top: auto to anchor at row top */
-        bottom: -20px; /* Changed from -10px to -20px for breathing space */
-        height: auto; /* Changed from 250px to auto to cover full content */
+        top: 0;
+        bottom: -30px; /* Increased from -10px to -30px for full coverage */
+        height: auto; /* Stretches to cover content */
         z-index: 0;
         border-radius: 15px;
     }
