@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RKT51HTC2Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RKT51HTC2Q');
+</script>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Abhiram N S</title>
 
   <!-- Google Fonts: Sansation (Light 300, Regular 400, Bold 700) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
   <!-- If this URL differs for Sansation in your setup, replace it with the correct one -->
 
   <!-- Adobe Fonts: Splash (replace XXXXXXX with your kit ID) -->
@@ -20,28 +31,34 @@
 
 <body>
 
-  <!-- Animation container (kept for future interactive BG; safe z-index via CSS) -->
-  <div class="animation-container" aria-hidden="true">
+
+  
+<div class="animation-container" aria-hidden="true">
     <svg id="animationSvg" preserveAspectRatio="none">
       <path id="animTriangle" class="shape" />
       <circle id="animCircle" class="shape" r="20" />
     </svg>
   </div>
+  <!-- Animation container (kept for future interactive BG; safe z-index via CSS) -->
+
+  
 
   <!-- Navbar -->
   <nav class="navbar" data-behavior="hide-on-scroll">
-    <a href="#publications">Work</a>
-    <a href="#about">About</a>
-    <a href="https://drive.google.com/file/d/137oiF-6MtJzSn1vhQD5wgykKUSkIyFAO/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+    <a href="#publications">WORK</a>
+    <a href="#about">ABOUT</a>
+    <a href="https://drive.google.com/file/d/169ZZR1uTuAt_i1yxt68OwHRhbPYs2HLa/view" target="_blank" rel="noopener">RESUME</a>
   </nav>
 
   <main>
 
     <!-- Hero Section -->
     <header class="hero-section" id="top">
+      <canvas id="bg"></canvas>  <!-- New: Interactive background canvas -->
+
       <!-- PNG heading (Papyrus-rendered image) -->
       <!-- Replace src with your exported PNG for “Hi I am Abhiram N S” -->
-      <img src="heading-papyrus.png" alt="Hi I am Abhiram N S" class="hero-heading-image" />
+      <img src="Hi-I-am-Abhiram-N-S.png" alt="Hi I am Abhiram N S" class="hero-heading-image" />
 
       <!-- Summary text (Sansation Light) -->
       <p class="hero-description">
@@ -62,7 +79,7 @@
       <h2 id="pub-title" class="section-title">PUBLICATIONS</h2>
 
       <!-- Publication Card 1 -->
-      <a class="pub-card" href="https://example.com/interact25-paper" target="_blank" rel="noopener">
+      <a class="pub-card" href="https://link.springer.com/chapter/10.1007/978-3-032-05008-3_48" target="_blank" rel="noopener">
         <div class="pub-card-content">
           <h3 class="pub-title">
             <span class="pub-title-regular">INTERACT&nbsp;25&nbsp;&mdash;&nbsp;</span>
@@ -78,7 +95,7 @@
       </a>
 
       <!-- Publication Card 2 -->
-      <a class="pub-card" href="https://example.com/indiahci2024-paper" target="_blank" rel="noopener">
+      <a class="pub-card" href="https://link.springer.com/chapter/10.1007/978-3-031-80832-6_11" target="_blank" rel="noopener">
         <div class="pub-card-content">
           <h3 class="pub-title">
             <span class="pub-title-regular">IndiaHCI&nbsp;2024&nbsp;&mdash;&nbsp;</span>
@@ -111,7 +128,7 @@
           <p class="project-text">
             Gesture-Based Swarm Control in VR leverages natural gestures to control aerial swarm robots in high-stakes scenarios like search-and-rescue. A user study identified preferred gestures, leading to a Unity-based prototype that enhances human-swarm interaction.
           </p>
-          <a href="https://drive.google.com/file/d/1Rth_5QeYUCAulKuV_yzPFVVw3736rBay/view?usp=sharing" class="project-btn" target="_blank" rel="noopener">View Project</a>
+          <a href="https://drive.google.com/file/d/1faJW_tohgzgXIy-0iKxuGavquxiDUy2W/view?usp=sharing" class="project-btn" target="_blank" rel="noopener">View Project</a>
         </div>
       </article>
 
@@ -124,7 +141,7 @@
         <div class="project-content">
           <h3 class="project-title">A Wearable Chorded Keyboard</h3>
           <p class="project-text">
-            Chordex is a wearable chorded keyboard designed for Indian languages, optimized and tested for Malayalam. It achieved an impressive typing speed of 85 CMP and was presented at IndiaHCI 2024.
+            Chordex is a wearable chorded keyboard designed for Indian languages, optimized and tested for Malayalam. It achieved an impressive typing speed of 85 CMP and was presented at IndiaHCI 2024 following its acceptance.
           </p>
           <a href="https://www.behance.net/gallery/213288693/Wearable-Chorded-Keyboard-for-Malayalam" class="project-btn" target="_blank" rel="noopener">View Project</a>
         </div>
@@ -139,7 +156,7 @@
         <div class="project-content">
           <h3 class="project-title">A One Stop for Rural Retail</h3>
           <p class="project-text">
-            Grama is a system design project connecting shopkeepers, customers, suppliers, and delivery agents through a unified platform—addressing inventory, pricing transparency, and credit systems to build trust and efficiency.
+            Grama is a system design project empowering rural commerce by connecting shopkeepers, customers, suppliers, and delivery agents. It streamlines inventory, pricing, and credit systems, fostering trust, efficiency, and community bonds in rural India.
           </p>
           <a href="https://www.behance.net/gallery/213171205/Redefining-Rural-Retail-Through-System-Design" class="project-btn" target="_blank" rel="noopener">View Project</a>
         </div>
@@ -160,25 +177,24 @@
     </section>
 
     <!-- About -->
-    <!-- About -->
-<section id="about" class="about" aria-labelledby="about-title">
-  <div class="about-main">
-    <!-- Profile Image Container -->
-    <div class="profile-container">
-      <div class="profile-frame"></div>
-      <img src="yourphoto.jpg" alt="Abhiram N S Profile Picture" class="profile-image"/>
-    </div>
-    
-    <!-- About Content -->
-    <div class="about-content">
-      <h2 id="about-title" class="hello-world">HELLO WORLD</h2>
-      <p class="about-text">
-        A curious mind and a hands-on creator, I love blending creativity, empathy, and a bit of playfulness to make experiences that feel simple, meaningful, and a little magical.
-        <br><br>
-        In my free time, I'm often playing football, trying new sports or musical instruments, exploring ideas through books and films, or capturing moments with my camera.
-      </p>
-    </div>
-  </div>
+    <section id="about" class="about" aria-labelledby="about-title">
+      <div class="about-main">
+        <!-- Profile Image Container -->
+        <div class="profile-container">
+          <div class="profile-frame"></div>
+          <img src="yourphoto2.jpg" alt="Abhiram N S Profile Picture" class="profile-image"/>
+        </div>
+        
+        <!-- About Content -->
+        <div class="about-content">
+          <h2 id="about-title" class="hello-world">HELLO WORLD ;)</h2>
+          <p class="about-text">
+            A curious mind and a hands-on creator, I love blending creativity, empathy, and a bit of playfulness to make experiences that feel simple, meaningful, and a little magical.
+            <br><br>
+            In my free time, I'm often playing football, trying new sports or musical instruments, exploring ideas through books and films, or capturing moments with my camera.
+          </p>
+        </div>
+      </div>
 
       <div class="social-container">
         <div class="social-links">
@@ -224,51 +240,50 @@
     });
 
     // Hide-on-scroll navbar
-// Hide-on-scroll navbar
-(function () {
-  const nav = document.querySelector('.navbar[data-behavior="hide-on-scroll"]');
-  if (!nav) return;
+    (function () {
+      const nav = document.querySelector('.navbar[data-behavior="hide-on-scroll"]');
+      if (!nav) return;
 
-  let lastY = window.scrollY;
-  let ticking = false;
-  const threshold = 50; // Increased threshold for better detection
+      let lastY = window.scrollY;
+      let ticking = false;
+      const threshold = 50; // Increased threshold for better detection
 
-  function onScroll() {
-    const currentY = window.scrollY;
-    
-    // At top: transparent & visible
-    if (currentY <= 50) {
-      nav.classList.remove('nav-hidden');
-      nav.classList.add('nav-top');
-    } else {
-      nav.classList.remove('nav-top');
-      
-      // Only hide/show if scroll difference is significant
-      if (Math.abs(currentY - lastY) > threshold) {
-        if (currentY > lastY && currentY > 100) {
-          // Scrolling down past 100px -> hide
-          nav.classList.add('nav-hidden');
-        } else if (currentY < lastY) {
-          // Scrolling up -> show
+      function onScroll() {
+        const currentY = window.scrollY;
+        
+        // At top: transparent & visible
+        if (currentY <= 50) {
           nav.classList.remove('nav-hidden');
+          nav.classList.add('nav-top');
+        } else {
+          nav.classList.remove('nav-top');
+          
+          // Only hide/show if scroll difference is significant
+          if (Math.abs(currentY - lastY) > threshold) {
+            if (currentY > lastY && currentY > 100) {
+              // Scrolling down past 100px -> hide
+              nav.classList.add('nav-hidden');
+            } else if (currentY < lastY) {
+              // Scrolling up -> show
+              nav.classList.remove('nav-hidden');
+            }
+            lastY = currentY;
+          }
         }
-        lastY = currentY;
+        
+        ticking = false;
       }
-    }
-    
-    ticking = false;
-  }
 
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(onScroll);
-      ticking = true;
-    }
-  });
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(onScroll);
+          ticking = true;
+        }
+      });
 
-  // Init state
-  nav.classList.add('nav-top');
-})();
+      // Init state
+      nav.classList.add('nav-top');
+    })();
 
     // (Optional) Minimal animation controller kept from your previous file
     class AnimationController {
@@ -368,5 +383,245 @@
     window.addEventListener('load', () => { new AnimationController(); });
   </script>
 
+  <!-- New: Interactive background script for hero section -->
+  <script>
+    // Customizable variables for control over texture, numbers, and effects
+    const NUM_PARTICLES = 150; // Number of particles (dots/droplets); increase for denser web
+    const PARTICLE_SIZE_MIN = 1; // Min particle size
+    const PARTICLE_SIZE_MAX = 4; // Max particle size for natural variation
+    const PARTICLE_SPEED = 0.1; // Initial subtle movement speed (lower for less drift)
+    const CONNECTION_DISTANCE = 90; // Max distance for particle connections (spider web strings)
+    const MOUSE_CONNECTION_DISTANCE = 150; // Max distance for connections to cursor
+    const REPEL_DISTANCE = 180; // Radius for repelling effect
+    const REPEL_STRENGTH = 1.0; // Strength of repel (adjust for subtlety)
+    const GLOW_BLUR = 8; // Glow intensity for water droplet and light effect
+    const LINE_WIDTH = 0.5; // Thin string-like lines for web texture
+    const SPRING_STRENGTH = 0.005; // Strength of restoring force to original position (subtle)
+    const DAMPING = 0.95; // Damping factor for smooth, natural motion
+
+    // For atmosphere: add background bokeh particles (adjusted to be smaller and more integrated)
+    const NUM_BOKEH = 50; // Fewer for less disconnection
+    const BOKEH_SIZE_MIN = 3;
+    const BOKEH_SIZE_MAX = 15;
+    const BOKEH_OPACITY = 0.04; // Lower opacity for subtle integration
+    const BOKEH_SPEED = 0.05; // Very slow for ambient feel
+
+    // Variables for controlling particle density in specific areas
+    const BASE_DENSITY = 0.005;
+    const FOCUS_AREAS = [
+        {centerX: 0.15, centerY: 0.95, radius: 0.3, densityMultiplier: 1}, //bottom left
+        {centerX: 0.35, centerY: 0.85, radius: 0.3, densityMultiplier: 0.5},
+        {centerX: 0.4, centerY: 0.5, radius: 0.3, densityMultiplier: 1}, // centre
+        {centerX: 0.65, centerY: 0.55, radius: 0.4, densityMultiplier: 0.5}, // centre
+        {centerX: 0.75, centerY: 0.35, radius: 0.2, densityMultiplier: 0.5},
+        {centerX: 1.0, centerY: 0.15, radius: 0.3, densityMultiplier: 1} //topright
+    ];
+    const MAX_DENSITY_ESTIMATE = BASE_DENSITY + FOCUS_AREAS.reduce((sum, area) => sum + area.densityMultiplier, 0);
+
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    const heroSection = document.querySelector('.hero-section');
+
+    // Handle resize for hero section coverage
+    function resizeCanvas() {
+        canvas.width = heroSection.clientWidth;
+        canvas.height = heroSection.clientHeight;
+        initParticles();
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+        constructor(x, y, isBokeh = false) {
+            this.x = x;
+            this.y = y;
+            this.homeX = this.x; // Original position to return to
+            this.homeY = this.y;
+            this.vx = (Math.random() - 0.5) * (isBokeh ? BOKEH_SPEED : PARTICLE_SPEED);
+            this.vy = (Math.random() - 0.5) * (isBokeh ? BOKEH_SPEED : PARTICLE_SPEED);
+            this.size = isBokeh 
+                ? Math.random() * (BOKEH_SIZE_MAX - BOKEH_SIZE_MIN) + BOKEH_SIZE_MIN 
+                : Math.random() * (PARTICLE_SIZE_MAX - PARTICLE_SIZE_MIN) + PARTICLE_SIZE_MIN;
+            this.opacity = isBokeh 
+                ? BOKEH_OPACITY * (0.7 + Math.random() * 0.3) // Varied opacity for bokeh
+                : 0.8 + Math.random() * 0.8; // Slight variation for natural feel
+            this.isBokeh = isBokeh;
+        }
+
+        update() {
+            // Spring force to return to home position
+            const springX = (this.homeX - this.x) * SPRING_STRENGTH;
+            const springY = (this.homeY - this.y) * SPRING_STRENGTH;
+            this.vx += springX;
+            this.vy += springY;
+
+            // Damping for smooth, damped oscillation
+            this.vx *= DAMPING;
+            this.vy *= DAMPING;
+
+            // Update position
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Bounce off edges to stay on screen
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.isBokeh 
+                ? `rgba(173, 216, 230, ${this.opacity})` 
+                : `rgba(173, 216, 230, ${this.opacity})`; // Light blue with opacity
+            ctx.shadowColor = 'rgba(173, 216, 230, 0.8)'; // Glow color for light/water droplet effect
+            ctx.shadowBlur = this.isBokeh ? GLOW_BLUR * 2 : GLOW_BLUR; // Stronger blur for bokeh atmosphere
+            ctx.fill();
+            ctx.shadowBlur = 0; // Reset to avoid affecting lines
+        }
+    }
+
+    let particles = [];
+    let bokehParticles = [];
+
+    function generateParticles(array, num, isBokeh) {
+        array.length = 0; // Clear existing
+        let attempts = 0;
+        const maxAttempts = num * 100; // Safety to prevent infinite loop if misconfigured
+        while (array.length < num && attempts < maxAttempts) {
+            attempts++;
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            let density = BASE_DENSITY;
+            FOCUS_AREAS.forEach(focus => {
+                const fx = focus.centerX * canvas.width;
+                const fy = focus.centerY * canvas.height;
+                const fr = focus.radius * Math.min(canvas.width, canvas.height);
+                const dx = x - fx;
+                const dy = y - fy;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < fr) {
+                    density += focus.densityMultiplier * (1 - dist / fr); // Linear falloff for smoother density transition
+                }
+            });
+            if (Math.random() < density / MAX_DENSITY_ESTIMATE) {
+                array.push(new Particle(x, y, isBokeh));
+            }
+        }
+    }
+
+    function initParticles() {
+        generateParticles(particles, NUM_PARTICLES, false);
+        generateParticles(bokehParticles, NUM_BOKEH, true);
+    }
+
+    resizeCanvas(); // Initial setup
+
+    let mouse = { x: undefined, y: undefined };
+
+    // Mouse and touch events
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        }
+    });
+    // Reset mouse on leave/out
+    window.addEventListener('mouseleave', () => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+    });
+    window.addEventListener('touchend', () => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        // Radial gradient background with light center, overall darker
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const maxRadius = Math.hypot(centerX, centerY);
+        const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius);
+        gradient.addColorStop(0, '#00273A'); // Light center (relative to darker outer)
+        gradient.addColorStop(1, '#030914'); // Darker outer for overall darker feel
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Update and draw bokeh for atmosphere first (background layer)
+        bokehParticles.forEach((p) => {
+            p.update();
+            p.draw();
+        });
+
+        // Draw connections between particles (spider web effect)
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < CONNECTION_DISTANCE) {
+                    // Opacity increases as particles get closer (natural forming effect)
+                    const opacity = (1 - dist / CONNECTION_DISTANCE) * 0.5;
+                    ctx.strokeStyle = `rgba(173, 216, 230, ${opacity})`;
+                    ctx.lineWidth = LINE_WIDTH;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // Update and draw particles (foreground droplets with glow)
+        particles.forEach((p) => {
+            p.update();
+            p.draw();
+        });
+
+        // Interactions if mouse/touch is active
+        if (mouse.x !== undefined && mouse.y !== undefined) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseXRel = mouse.x - rect.left;
+            const mouseYRel = mouse.y - rect.top;
+
+            // Repel particles by adding to velocity (for damped, smooth response)
+            particles.forEach((p) => {
+                const dx = p.x - mouseXRel;
+                const dy = p.y - mouseYRel;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < REPEL_DISTANCE && dist > 0) { // Avoid div by zero
+                    const angle = Math.atan2(dy, dx);
+                    const force = (1 - dist / REPEL_DISTANCE) * REPEL_STRENGTH;
+                    p.vx += Math.cos(angle) * force;
+                    p.vy += Math.sin(angle) * force;
+                }
+            });
+
+            // Temporary connections to cursor (with gradual opacity based on distance)
+            particles.forEach((p) => {
+                const dx = p.x - mouseXRel;
+                const dy = p.y - mouseYRel;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MOUSE_CONNECTION_DISTANCE) {
+                    const opacity = (1 - dist / MOUSE_CONNECTION_DISTANCE) * 0.8;
+                    ctx.strokeStyle = `rgba(173, 216, 230, ${opacity})`;
+                    ctx.lineWidth = LINE_WIDTH;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouseXRel, mouseYRel);
+                    ctx.stroke();
+                }
+            });
+        }
+    }
+
+    animate();
+  </script>
+
+  
 </body>
 </html>
