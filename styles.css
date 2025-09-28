@@ -695,8 +695,8 @@ main {
     
     .project-bg {
         position: absolute;
-        left: -50px;
-        right: -50px;
+        left: 0px;
+        right: 0px;
         top: auto;
         bottom: -25px; /* Changed from -15px to -25px for external breathing space */
         height: 300px; /* Increased from 280px to 300px to match padding increase */
@@ -892,8 +892,8 @@ main {
     
     .project-bg {
         position: absolute;
-        left: -25px;
-        right: -25px;
+        left: 0px;
+        right: 0px;
         top: 100;
         bottom: -140px; /* Increased from -10px to -30px for full coverage 88888 */
         height: 300px; /* Stretches to cover content */
@@ -1085,8 +1085,8 @@ main {
     
     .project-bg {
         position: absolute;
-        left: -20px;
-        right: -20px;
+        left: 0px;
+        right: 0px;
         top: auto;
         bottom: -5;
         height: 300px; /* 888888 increased */
